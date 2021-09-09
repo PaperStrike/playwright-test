@@ -16,6 +16,7 @@ import polka from 'polka'
 import { writeSync } from 'tempy'
 import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -375,15 +376,6 @@ require('${require
 
   const entryPoint = writeSync(infileContent, { extension: 'js' })
   /** @type {ESBuildPlugin} */
-  const nodePlugin = {
-    name: 'node built ins',
-    setup(build) {
-      build.onResolve({ filter: /^path$/ }, () => {
-        return { path: require.resolve('path-browserify') }
-      })
-    },
-  }
-  /** @type {ESBuildPlugin} */
   const watchPlugin = {
     name: 'watcher',
     setup(build) {
@@ -401,7 +393,7 @@ require('${require
     bundle: true,
     mainFields: ['browser', 'module', 'main'],
     sourcemap: 'inline',
-    plugins: [nodePlugin, watchPlugin],
+    plugins: [NodeModulesPolyfillPlugin(), watchPlugin],
     outfile: outPath,
     inject: [path.join(__dirname, 'inject-process.js')],
     define: {

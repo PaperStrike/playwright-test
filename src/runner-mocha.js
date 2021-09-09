@@ -79,20 +79,9 @@ class MochaRunner extends Runner {
    * @returns {Promise<import('./types.js').CompilerOutput>} file to be loaded in the page
    */
   compiler(mode = 'bundle') {
-    /** @type {EsbuildPlugin} */
-    const plugin = {
-      name: 'swap tape',
-
-      setup(build) {
-        build.onResolve({ filter: /^stream$/ }, () => {
-          return { path: require.resolve('stream-browserify') }
-        })
-      },
-    }
     return build(
       this,
       {
-        plugins: [plugin],
         inject: [path.join(__dirname, 'node-globals-buffer.js')],
       },
       `require('${require.resolve('./setup-mocha.js').replace(/\\/g, '/')}')`,

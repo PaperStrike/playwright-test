@@ -47,6 +47,7 @@
     "uvu"
   ],
   "dependencies": {
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.2",
     "buffer": "^6.0.3",
     "camelcase": "^6.2.0",
     "chokidar": "^3.5.2",
@@ -59,7 +60,6 @@
     "merge-options": "^3.0.4",
     "ora": "^5.4.1",
     "p-wait-for": "4.1.0",
-    "path-browserify": "^1.0.1",
     "playwright-core": "1.12.3",
     "polka": "^0.5.2",
     "premove": "^3.0.1",
@@ -67,7 +67,6 @@
     "sade": "^1.7.4",
     "sirv": "^1.0.12",
     "source-map": "0.6.1",
-    "stream-browserify": "^3.0.0",
     "strip-ansi": "^7.0.0",
     "tape": "^5.2.2",
     "tempy": "^1.0.1",

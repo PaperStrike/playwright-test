@@ -43,6 +43,16 @@ describe('mocha', function () {
     ok(proc.stdout.includes('5 passing'), 'process stdout')
   })
 
+  it('.ts config', async () => {
+    const proc = await execa('./cli.js', [
+      'mocks/test.mocha.js',
+      '--config',
+      'mocks/test.config.ts'
+    ])
+    is(proc.exitCode, 0, 'exit code')
+    ok(proc.stdout.includes('.ts config parsed'), 'process stdout')
+  })
+
   it('sw', async () => {
     const proc = await execa('./cli.js', [
       'mocks/sw/sw-test.js',

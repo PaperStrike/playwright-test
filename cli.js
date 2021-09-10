@@ -6,6 +6,7 @@ import sade from 'sade'
 import kleur from 'kleur'
 import { fileURLToPath } from 'url'
 import { lilconfigSync } from 'lilconfig'
+import { TypeScriptLoader } from '@sliphua/lilconfig-ts-loader'
 import mergeOptions from 'merge-options'
 import { runnerOptions } from './src/utils/index.js'
 import UvuRunner from './src/runner-uvu.js'
@@ -146,7 +147,11 @@ sade2
     let config
     try {
       if (opts.config) {
-        config = lilconfigSync('playwright-test').load(
+        config = lilconfigSync('playwright-test', {
+          loaders: {
+            '.ts': TypeScriptLoader
+          }
+        }).load(
           path.resolve(opts.config)
         )
       } else {
